@@ -83,6 +83,7 @@ FText GetValidGuess() {
 		default:
 			return Guess;
 		}
+		std::cout << "\n";
 	} while (Status != EGuessStatus::OK); // keep looping until we get no errors
 	
 }
