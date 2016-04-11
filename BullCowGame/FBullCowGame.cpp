@@ -23,17 +23,17 @@ bool FBullCowGame::IsGameWon() const {
 
 void FBullCowGame::Reset() {
 	constexpr int32 MAX_TRIES = 8;
+	const FString HIDDEN_WORD = "planet";
+	
 	MyMaxTries = MAX_TRIES;
-
-	const FString HIDDEN_WORD = "seth";
 	MyHiddenWord = HIDDEN_WORD;
-
 	MyCurrentTry = 1;
 	return;
 }
 
-bool FBullCowGame::CheckGuessValid(FString) const {
-	return false;
+EWordStatus FBullCowGame::CheckGuessValid(FString) const {
+	
+	return EWordStatus::OK; // TODO make actual error
 }
 
 // recives a valid guess, increments try, and returns count
