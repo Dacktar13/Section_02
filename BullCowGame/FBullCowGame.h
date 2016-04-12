@@ -32,7 +32,6 @@ public:
 	void Reset(); // TODO make a more rich return value back
 	FBullCowCount SubmitValidGuess(FString);
 
-
 private:
 	int32 MyCurrentTry;
 	int32 MyMaxTries;
