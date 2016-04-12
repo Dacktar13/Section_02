@@ -45,16 +45,18 @@ void PlayGame(){
 	BCGame.Reset();
 	int32 MaxTries = BCGame.GetMaxTries();
 
-	// loop for the number of turns asking for guesses
-	for (int32 count = 1; count <= MaxTries; count++) { // TODO Change from FORR loop to WHILE loop once validating tries
+	// loop asking for guesses while the game is NOT won 
+	// and there are still tries remaining
+	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries){
 		FText Guess = GetValidGuess(); 
 
 		//  Submit valid guess to the game
-		FBullCowCount BullCowCount = BCGame.SubmitGuess(Guess);
+		FBullCowCount BullCowCount = BCGame.SubmitValidGuess(Guess);
 
 		std::cout << "Bulls = " << BullCowCount.Bulls;
 		std::cout << ". Cows = " << BullCowCount.Cows << "\n\n";
 	}
+	
 	
 	// TODO add game summary
 }
@@ -62,11 +64,12 @@ void PlayGame(){
 // loop continually until the user gives a valid guess
 FText GetValidGuess() { 
 	EGuessStatus Status = EGuessStatus::Invalid_Status;
+	FText Guess = "";
 	do {
 		// get a guess from the player
 		int32 CurrentTry = BCGame.GetCurrentTry();
 		std::cout << "Try " << CurrentTry << ". Please enter your guess: ";
-		FText Guess = "";
+		
 		std::getline(std::cin, Guess);
 
 		 Status = BCGame.CheckGuessValid(Guess);
@@ -81,10 +84,12 @@ FText GetValidGuess() {
 			std::cout << "Please make sure your guess is all lowercase!\n";
 			break;
 		default:
-			return Guess;
+			// assume guess is valid
+			break;
 		}
 		std::cout << "\n";
 	} while (Status != EGuessStatus::OK); // keep looping until we get no errors
+	return Guess;
 	
 }
 
