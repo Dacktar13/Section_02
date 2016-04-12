@@ -28,13 +28,17 @@ public:
 	int32 GetHiddenWordLength() const;
 	bool IsGameWon() const;
 	EGuessStatus CheckGuessValid(FString) const;
+	
 
 	void Reset(); // TODO make a more rich return value back
 	FBullCowCount SubmitValidGuess(FString);
+	
 
 private:
 	int32 MyCurrentTry;
 	int32 MyMaxTries;
 	FString MyHiddenWord;
 	bool bGameIsWon;
+
+	bool IsIsogram(FString) const;
 };
