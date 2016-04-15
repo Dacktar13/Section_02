@@ -36,6 +36,12 @@ void PrintIntro() {
 	// introduce the game
 	constexpr int32 WORD_LENGTH = 5;
 	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game.\n";
+	std::cout << "           }   {        ___ " << std::endl;
+	std::cout << "           (o o)       (o o) " << std::endl;
+	std::cout << "   /-------\\   /       \\   /-------\\ " << std::endl;
+	std::cout << "  / | BULL |               | COW  | \\  " << std::endl;
+	std::cout << " *  |-,----|               |______|  *  " << std::endl;
+	std::cout << "    ^      ^               ^       ^    " << std::endl;
 	std::cout << "Can you guess the " << FBullCowGame().GetHiddenWordLength();
 	std::cout << " letter isogram I'm thinking of?\n";
 	std::cout << std::endl;
@@ -55,7 +61,10 @@ void PlayGame(){
 		FBullCowCount BullCowCount = BCGame.SubmitValidGuess(Guess);
 
 		std::cout << "Bulls = " << BullCowCount.Bulls;
-		std::cout << ". Cows = " << BullCowCount.Cows << "\n\n";
+		std::cout << ". Cows = " << BullCowCount.Cows << "\n";
+		if (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries) {
+			std::cout << "You have " << MaxTries - BCGame.GetCurrentTry() + 1 << " tries left.\n\n";
+		}
 	}
 	PrintGameSummary();
 	return;
@@ -75,19 +84,18 @@ FText GetValidGuess() {
 		 Status = BCGame.CheckGuessValid(Guess);
 		switch (Status) {
 		case EGuessStatus::Wrong_Length:
-			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n";
+			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n\n";
 			break;
 		case EGuessStatus::Not_Isogram:
-			std::cout << "Please enter a word without repeating letters. \n";
+			std::cout << "Please enter a word without repeating letters. \n\n";
 			break;
 		case EGuessStatus::Not_Lowercase:
-			std::cout << "Please make sure your guess is all lowercase!\n";
+			std::cout << "Please make sure your guess is all lowercase!\n\n";
 			break;
 		default:
 			// assume guess is valid
 			break;
 		}
-		std::cout << "\n";
 	} while (Status != EGuessStatus::OK); // keep looping until we get no errors
 	return Guess;
 	
