@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <iostream>
+#include <ctime>
 
 using FString = std::string;
 using int32 = int;
@@ -23,7 +25,7 @@ enum class EWordStatus {
 	Four,
 	Five,
 	Six,
-	Severn
+	Seven
 };
 
 class FBullCowGame {
@@ -35,8 +37,8 @@ public:
 	int32 GetHiddenWordLength() const;
 	bool IsGameWon() const;
 	EGuessStatus CheckGuessValid(FString) const;
-	FString GetHiddenWord(FString);
-	
+	FString GetHiddenWord(FString) const;
+	EWordStatus DiffulcutySelected(FString) const;
 
 	void Reset(); // TODO make a more rich return value back
 	FBullCowCount SubmitValidGuess(FString);

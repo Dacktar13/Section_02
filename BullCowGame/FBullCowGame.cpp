@@ -25,9 +25,8 @@ int32 FBullCowGame::GetMaxTries() const {
 }
 
 void FBullCowGame::Reset() {
-	const FString HIDDEN_WORD = "planet";
-	
-	MyHiddenWord = HIDDEN_WORD;
+		
+	MyHiddenWord = GetHiddenWord("6");
 	MyCurrentTry = 1;
 	bGameIsWon = false;
 	return;
@@ -49,13 +48,67 @@ EGuessStatus FBullCowGame::CheckGuessValid(FString Guess) const {
 	}
 }
 
-FString FBullCowGame::GetHiddenWord(FString Wordlength){
-	
-	FString ThreeLetterWords[] = {"bat","cat"};
-	FString FourLetterWords[] = { "bats","cats" };
-	FString FiveLetterWords[] = { "bat","cat" };
-	FString SixLetterWords[] = { "planet","planes" };
-	FString SevernLetterWords[] = { "bat","cat" };
+EWordStatus FBullCowGame::DiffulcutySelected(FString Diffulcuty) const {
+	if (Diffulcuty == "3"){
+		return EWordStatus::Three;
+	}
+	else if (Diffulcuty == "4"){
+		return EWordStatus::Four;
+	}
+	else if (Diffulcuty == "5") {
+		return EWordStatus::Five;
+	}
+	else if (Diffulcuty == "6") {
+		return EWordStatus::Six;
+	}
+	else {
+		return EWordStatus::Seven;
+	}
+
+}
+
+FString FBullCowGame::GetHiddenWord(FString length) const {
+	srand(time(NULL)); // seed for random generater
+	FString WordArray[3];
+	int32 len = sizeof(WordArray) / sizeof(*WordArray);
+
+	FString ThreeWordArray[] = { "cat","box","fan" };
+	FString FourWordArray[] = { "bats","drop","road" };
+	FString FiveWordArray[] = { "lives","rains","float" };
+	FString SixWordArray[] = { "planet","spouce","plants" };
+	FString SevenWordArray[] = { "bawling","pitched","snorted" };
+
+	EWordStatus WordLength = DiffulcutySelected(length);
+	switch (WordLength) {
+	case EWordStatus::Three:
+		for (int i = 0; i < len; i++) {
+			WordArray[i] = ThreeWordArray[i];
+		}
+		break;
+	case EWordStatus::Four:
+		for (int i = 0; i < len; i++) {
+			WordArray[i] = FourWordArray[i];
+		}
+		break;
+	case EWordStatus::Five:
+		for (int i = 0; i < len; i++) {
+			WordArray[i] = FiveWordArray[i];
+		}
+		break;
+	case EWordStatus::Six:
+		for (int i = 0; i < len; i++) {
+			WordArray[i] = SixWordArray[i];
+		}
+		break;
+	case EWordStatus::Seven:
+		for (int i = 0; i < len; i++) {
+			WordArray[i] = SevenWordArray[i];
+		}
+		break;
+	default:
+		break;
+	return WordArray[rand() % len];
+	}
 }
 
 // recives a valid guess, increments try, and returns count
