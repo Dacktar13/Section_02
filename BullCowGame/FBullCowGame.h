@@ -18,6 +18,13 @@ enum class EGuessStatus {
 	Not_Lowercase
 };
 
+enum class EWordStatus {
+	Three,
+	Four,
+	Five,
+	Six,
+	Severn
+};
 
 class FBullCowGame {
 public:
@@ -28,6 +35,7 @@ public:
 	int32 GetHiddenWordLength() const;
 	bool IsGameWon() const;
 	EGuessStatus CheckGuessValid(FString) const;
+	FString GetHiddenWord(FString);
 	
 
 	void Reset(); // TODO make a more rich return value back

@@ -15,6 +15,7 @@ void PlayGame();
 FText GetValidGuess();
 bool AskToPlayAgain();
 void PrintGameSummary();
+void GetWord();
 
 FBullCowGame BCGame; // instantiate a new game
 
@@ -34,7 +35,9 @@ int main() {
 
 void PrintIntro() {
 	// introduce the game
-	constexpr int32 WORD_LENGTH = 5;
+	GetWord();
+	
+	
 	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game.\n";
 	std::cout << "           }   {        ___ " << std::endl;
 	std::cout << "           (o o)       (o o) " << std::endl;
@@ -52,6 +55,7 @@ void PlayGame(){
 	BCGame.Reset();
 	int32 MaxTries = BCGame.GetMaxTries();
 
+	
 	// loop asking for guesses while the game is NOT won 
 	// and there are still tries remaining
 	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries){
@@ -117,3 +121,13 @@ void PrintGameSummary() {
 	}
 	return;
 }
+
+void GetWord() {
+	FText WordLength = "";
+	std::cout << "Please enter the length of the isogram you want. (3/4/5/6/7) ";
+	std::getline(std::cin, WordLength);
+	
+	
+	return;
+}
+	

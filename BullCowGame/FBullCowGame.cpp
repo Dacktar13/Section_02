@@ -49,6 +49,15 @@ EGuessStatus FBullCowGame::CheckGuessValid(FString Guess) const {
 	}
 }
 
+FString FBullCowGame::GetHiddenWord(FString Wordlength){
+	
+	FString ThreeLetterWords[] = {"bat","cat"};
+	FString FourLetterWords[] = { "bats","cats" };
+	FString FiveLetterWords[] = { "bat","cat" };
+	FString SixLetterWords[] = { "planet","planes" };
+	FString SevernLetterWords[] = { "bat","cat" };
+}
+
 // recives a valid guess, increments try, and returns count
 FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess) {
 
