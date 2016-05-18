@@ -2,7 +2,6 @@
 #include <map>
 #define TMap std::map
 
-
 FBullCowGame::FBullCowGame() {
 	Reset();
 } //default constructor
